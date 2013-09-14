@@ -21,6 +21,7 @@ module RbNaCl
 end
 
 require "rbnacl/nacl"
+require "rbnacl/libsodium"
 require "rbnacl/version"
 require "rbnacl/serializable"
 require "rbnacl/keys/key_comparator"
