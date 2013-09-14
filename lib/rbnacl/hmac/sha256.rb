@@ -28,11 +28,11 @@ module RbNaCl
 
       private
       def compute_authenticator(message, authenticator)
-        NaCl.crypto_auth_hmacsha256(authenticator, message, message.bytesize, key)
+        NaCl.auth_hmacsha256(authenticator, message, message.bytesize, key)
       end
 
       def verify_message(message, authenticator)
-        NaCl.crypto_auth_hmacsha256_verify(authenticator, message, message.bytesize, key)
+        NaCl.auth_hmacsha256_verify(authenticator, message, message.bytesize, key)
       end
     end
   end

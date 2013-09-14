@@ -41,7 +41,7 @@ module RbNaCl
     def self.generate
       pk = Util.zeros(NaCl::CURVE25519_XSALSA20_POLY1305_PUBLICKEY_BYTES)
       sk = Util.zeros(NaCl::CURVE25519_XSALSA20_POLY1305_SECRETKEY_BYTES)
-      NaCl.crypto_box_curve25519xsalsa20poly1305_keypair(pk, sk) || raise(CryptoError, "Failed to generate a key pair")
+      NaCl.box_curve25519xsalsa20poly1305_keypair(pk, sk) || raise(CryptoError, "Failed to generate a key pair")
       new(sk)
     end
 

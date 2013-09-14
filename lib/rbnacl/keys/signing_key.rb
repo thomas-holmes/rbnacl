@@ -43,7 +43,7 @@ module RbNaCl
       pk = Util.zeros(NaCl::ED25519_VERIFYKEY_BYTES)
       sk = Util.zeros(NaCl::ED25519_SIGNINGKEY_BYTES)
 
-      NaCl.crypto_sign_ed25519_seed_keypair(pk, sk, seed) || raise(CryptoError, "Failed to generate a key pair")
+      NaCl.sign_ed25519_seed_keypair(pk, sk, seed) || raise(CryptoError, "Failed to generate a key pair")
 
       @seed, @signing_key = seed, sk
       @verify_key = VerifyKey.new(pk)
@@ -58,7 +58,7 @@ module RbNaCl
       buffer = Util.prepend_zeros(signature_bytes, message)
       buffer_len = Util.zeros(FFI::Type::LONG_LONG.size)
 
-      NaCl.crypto_sign_ed25519(buffer, buffer_len, message, message.bytesize, @signing_key)
+      NaCl.sign_ed25519(buffer, buffer_len, message, message.bytesize, @signing_key)
 
       buffer[0, signature_bytes]
     end

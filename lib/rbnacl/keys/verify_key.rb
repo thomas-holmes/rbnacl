@@ -37,7 +37,7 @@ module RbNaCl
       buffer = Util.zeros(sig_and_msg.bytesize)
       buffer_len = Util.zeros(FFI::Type::LONG_LONG.size)
 
-      NaCl.crypto_sign_ed25519_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key)
+      NaCl.sign_ed25519_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key)
     end
 
     # Verify a signature for a given message or raise exception

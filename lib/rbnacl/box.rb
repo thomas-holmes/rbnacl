@@ -102,7 +102,7 @@ module RbNaCl
       msg = Util.prepend_zeros(NaCl::ZEROBYTES, message)
       ct  = Util.zeros(msg.bytesize)
 
-      NaCl.crypto_box_curve25519_xsalsa20_poly1305_afternm(ct, msg, msg.bytesize, nonce, beforenm) || raise(CryptoError, "Encryption failed")
+      NaCl.box_curve25519_xsalsa20_poly1305_afternm(ct, msg, msg.bytesize, nonce, beforenm) || raise(CryptoError, "Encryption failed")
       Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
     end
     alias encrypt box
@@ -126,7 +126,7 @@ module RbNaCl
       ct = Util.prepend_zeros(NaCl::BOXZEROBYTES, ciphertext)
       message  = Util.zeros(ct.bytesize)
 
-      NaCl.crypto_box_curve25519_xsalsa20_poly1305_open_afternm(message, ct, ct.bytesize, nonce, beforenm) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
+      NaCl.box_curve25519_xsalsa20_poly1305_open_afternm(message, ct, ct.bytesize, nonce, beforenm) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
       Util.remove_zeros(NaCl::ZEROBYTES, message)
     end
     alias decrypt open
@@ -163,7 +163,7 @@ module RbNaCl
     def beforenm
       @k ||= begin
                k = Util.zeros(NaCl::CURVE25519_XSALSA20_POLY1305_BOX_BEFORENMBYTES)
-               NaCl.crypto_box_curve25519_xsalsa20_poly1305_beforenm(k, @public_key.to_s, @private_key.to_s) || raise(CryptoError, "Failed to derive shared key")
+               NaCl.box_curve25519_xsalsa20_poly1305_beforenm(k, @public_key.to_s, @private_key.to_s) || raise(CryptoError, "Failed to derive shared key")
                k
              end
     end

@@ -49,18 +49,18 @@ module RbNaCl
     attach_function :sodium_init, [], :int
 
     SHA256BYTES = 32
-    wrap_nacl_function :crypto_hash_sha256,
-                       :crypto_hash_sha256_ref,
+    wrap_nacl_function :hash_sha256,
+                       :crypto_hash_sha256,
                        [:pointer, :pointer, :long_long]
 
     SHA512BYTES = 64
-    wrap_nacl_function :crypto_hash_sha512,
-                       :crypto_hash_sha512_ref,
+    wrap_nacl_function :hash_sha512,
+                       :crypto_hash_sha512,
                        [:pointer, :pointer, :long_long]
 
     BLAKE2B_OUTBYTES = 64
     BLAKE2B_KEYBYTES = 64
-    wrap_nacl_function :crypto_hash_blake2b,
+    wrap_nacl_function :hash_blake2b,
                        :crypto_generichash_blake2b,
                        [:pointer, :size_t, :pointer, :long_long, :pointer, :size_t]
 
@@ -68,8 +68,8 @@ module RbNaCl
     PUBLICKEYBYTES = CURVE25519_XSALSA20_POLY1305_PUBLICKEY_BYTES
     CURVE25519_XSALSA20_POLY1305_SECRETKEY_BYTES = 32
     SECRETKEYBYTES = CURVE25519_XSALSA20_POLY1305_SECRETKEY_BYTES
-    wrap_nacl_function :crypto_box_curve25519xsalsa20poly1305_keypair,
-                       :crypto_box_curve25519xsalsa20poly1305_ref_keypair,
+    wrap_nacl_function :box_curve25519xsalsa20poly1305_keypair,
+                       :crypto_box_curve25519xsalsa20poly1305_keypair,
                        [:pointer, :pointer]
 
     CURVE25519_XSALSA20_POLY1305_BOX_NONCEBYTES    = 24
@@ -78,64 +78,64 @@ module RbNaCl
     BOXZEROBYTES   = 16
     CURVE25519_XSALSA20_POLY1305_BOX_BEFORENMBYTES = 32
 
-    wrap_nacl_function :crypto_box_curve25519_xsalsa20_poly1305_beforenm,
-                       :crypto_box_curve25519xsalsa20poly1305_ref_beforenm,
+    wrap_nacl_function :box_curve25519_xsalsa20_poly1305_beforenm,
+                       :crypto_box_curve25519xsalsa20poly1305_beforenm,
                        [:pointer, :pointer, :pointer]
 
-    wrap_nacl_function :crypto_box_curve25519_xsalsa20_poly1305_afternm,
-                       :crypto_box_curve25519xsalsa20poly1305_ref_afternm,
+    wrap_nacl_function :box_curve25519_xsalsa20_poly1305_afternm,
+                       :crypto_box_curve25519xsalsa20poly1305_afternm,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
 
-    wrap_nacl_function :crypto_box_curve25519_xsalsa20_poly1305_open_afternm,
-                       :crypto_box_curve25519xsalsa20poly1305_ref_open_afternm,
+    wrap_nacl_function :box_curve25519_xsalsa20_poly1305_open_afternm,
+                       :crypto_box_curve25519xsalsa20poly1305_open_afternm,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
 
     XSALSA20_POLY1305_SECRETBOX_KEYBYTES   = 32
     XSALSA20_POLY1305_SECRETBOX_NONCEBYTES = 24
-    wrap_nacl_function :crypto_secretbox_xsalsa20poly1305,
-                       :crypto_secretbox_xsalsa20poly1305_ref,
+    wrap_nacl_function :secretbox_xsalsa20poly1305,
+                       :crypto_secretbox_xsalsa20poly1305,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
 
-    wrap_nacl_function :crypto_secretbox_xsalsa20poly1305_open,
-                       :crypto_secretbox_xsalsa20poly1305_ref_open,
+    wrap_nacl_function :secretbox_xsalsa20poly1305_open,
+                       :crypto_secretbox_xsalsa20poly1305_open,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
 
     HMACSHA512256_KEYBYTES = 32
     HMACSHA512256_BYTES = 32
-    wrap_nacl_function :crypto_auth_hmacsha512256,
-                       :crypto_auth_hmacsha512256_ref,
+    wrap_nacl_function :auth_hmacsha512256,
+                       :crypto_auth_hmacsha512256,
                        [:pointer, :pointer, :long_long, :pointer]
-    wrap_nacl_function :crypto_auth_hmacsha512256_verify,
-                       :crypto_auth_hmacsha512256_ref_verify,
+    wrap_nacl_function :auth_hmacsha512256_verify,
+                       :crypto_auth_hmacsha512256_verify,
                        [:pointer, :pointer, :long_long, :pointer]
 
     HMACSHA256_KEYBYTES = 32
     HMACSHA256_BYTES = 32
-    wrap_nacl_function :crypto_auth_hmacsha256,
-                       :crypto_auth_hmacsha256_ref,
+    wrap_nacl_function :auth_hmacsha256,
+                       :crypto_auth_hmacsha256,
                        [:pointer, :pointer, :long_long, :pointer]
-    wrap_nacl_function :crypto_auth_hmacsha256_verify,
-                       :crypto_auth_hmacsha256_ref_verify,
+    wrap_nacl_function :auth_hmacsha256_verify,
+                       :crypto_auth_hmacsha256_verify,
                        [:pointer, :pointer, :long_long, :pointer]
     
     ONETIME_KEYBYTES = 32
     ONETIME_BYTES = 16
-    wrap_nacl_function :crypto_auth_onetime,
-                       :crypto_onetimeauth_poly1305_ref,
+    wrap_nacl_function :auth_onetime,
+                       :crypto_onetimeauth_poly1305,
                        [:pointer, :pointer, :long_long, :pointer]
-    wrap_nacl_function :crypto_auth_onetime_verify,
-                       :crypto_onetimeauth_poly1305_ref_verify,
+    wrap_nacl_function :auth_onetime_verify,
+                       :crypto_onetimeauth_poly1305_verify,
                        [:pointer, :pointer, :long_long, :pointer]
 
     wrap_nacl_function :random_bytes,
                        :randombytes,
                        [:pointer, :long_long]
 
-    wrap_nacl_function :crypto_verify_32,
-                       :crypto_verify_32_ref,
+    wrap_nacl_function :verify_32,
+                       :crypto_verify_32,
                        [:pointer, :pointer]
-    wrap_nacl_function :crypto_verify_16,
-                       :crypto_verify_16_ref,
+    wrap_nacl_function :verify_16,
+                       :crypto_verify_16,
                        [:pointer, :pointer]
 
     ED25519_SIGNATUREBYTES   = 64
@@ -143,23 +143,23 @@ module RbNaCl
     ED25519_SIGNINGKEY_BYTES = 64
     ED25519_VERIFYKEY_BYTES  = 32
     ED25519_SEED_BYTES       = 32
-    wrap_nacl_function :crypto_sign_ed25519_seed_keypair,
-                       :crypto_sign_ed25519_ref_seed_keypair,
+    wrap_nacl_function :sign_ed25519_seed_keypair,
+                       :crypto_sign_ed25519_seed_keypair,
                        [:pointer, :pointer, :pointer]
 
-    wrap_nacl_function :crypto_sign_ed25519,
-                       :crypto_sign_ed25519_ref,
+    wrap_nacl_function :sign_ed25519,
+                       :crypto_sign_ed25519,
                        [:pointer, :pointer, :pointer, :long_long, :pointer]
 
-    wrap_nacl_function :crypto_sign_ed25519_open,
-                       :crypto_sign_ed25519_ref_open,
+    wrap_nacl_function :sign_ed25519_open,
+                       :crypto_sign_ed25519_open,
                        [:pointer, :pointer, :pointer, :long_long, :pointer]
 
     ED25519_SCALARBYTES = 32
     SCALARBYTES         = ED25519_SCALARBYTES
 
-    wrap_nacl_function :crypto_scalarmult_curve25519,
-                       :crypto_scalarmult_curve25519_ref,
+    wrap_nacl_function :scalarmult_curve25519,
+                       :crypto_scalarmult_curve25519,
                        [:pointer, :pointer, :pointer]
   end
 end

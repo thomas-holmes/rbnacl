@@ -35,7 +35,7 @@ module RbNaCl
       # @return [String] Blake2b digest of the string as raw bytes
       def digest(message)
         digest = Util.zeros(@digest_size)
-        NaCl.crypto_hash_blake2b(digest, @digest_size, message, message.bytesize, @key, @key_size) || raise(CryptoError, "Hashing failed!")
+        NaCl.hash_blake2b(digest, @digest_size, message, message.bytesize, @key, @key_size) || raise(CryptoError, "Hashing failed!")
         digest
       end
     end

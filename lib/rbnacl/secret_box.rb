@@ -55,7 +55,7 @@ module RbNaCl
       msg = Util.prepend_zeros(NaCl::ZEROBYTES, message)
       ct  = Util.zeros(msg.bytesize)
 
-      NaCl.crypto_secretbox_xsalsa20poly1305(ct, msg, msg.bytesize, nonce, @key) || raise(CryptoError, "Encryption failed")
+      NaCl.secretbox_xsalsa20poly1305(ct, msg, msg.bytesize, nonce, @key) || raise(CryptoError, "Encryption failed")
       Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
     end
     alias encrypt box
@@ -79,7 +79,7 @@ module RbNaCl
       ct = Util.prepend_zeros(NaCl::BOXZEROBYTES, ciphertext)
       message  = Util.zeros(ct.bytesize)
 
-      NaCl.crypto_secretbox_xsalsa20poly1305_open(message, ct, ct.bytesize, nonce, @key) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
+      NaCl.secretbox_xsalsa20poly1305_open(message, ct, ct.bytesize, nonce, @key) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
       Util.remove_zeros(NaCl::ZEROBYTES, message)
     end
     alias decrypt open

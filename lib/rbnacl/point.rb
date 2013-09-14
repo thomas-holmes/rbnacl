@@ -46,7 +46,7 @@ module RbNaCl
       Util.check_length(integer, SCALARBYTES, "integer")
 
       result = Util.zeros(SCALARBYTES)
-      NaCl.crypto_scalarmult_curve25519(result, integer, @point)
+      NaCl.scalarmult_curve25519(result, integer, @point)
 
       self.class.new(result)
     end

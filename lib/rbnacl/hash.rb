@@ -25,7 +25,7 @@ module RbNaCl
     def self.sha256(data)
       data   = data.to_str
       digest = Util.zeros(NaCl::SHA256BYTES)
-      NaCl.crypto_hash_sha256(digest, data, data.bytesize) || raise(CryptoError, "Hashing failed!")
+      NaCl.hash_sha256(digest, data, data.bytesize) || raise(CryptoError, "Hashing failed!")
       digest
     end
 
@@ -40,7 +40,7 @@ module RbNaCl
     # @return [String] The SHA-512 hash as raw bytes (Or encoded as per the second argument)
     def self.sha512(data)
       digest = Util.zeros(NaCl::SHA512BYTES)
-      NaCl.crypto_hash_sha512(digest, data, data.bytesize) || raise(CryptoError, "Hashing failed!")
+      NaCl.hash_sha512(digest, data, data.bytesize) || raise(CryptoError, "Hashing failed!")
       digest
     end
 
